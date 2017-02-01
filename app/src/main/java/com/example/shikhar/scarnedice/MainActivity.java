@@ -37,7 +37,24 @@ public class MainActivity extends AppCompatActivity {
         timerRunnable = new Runnable() {
             @Override
             public void run() {
+                computercurrent = 0;
+                int number = getnumber();
+
+                if(number==1) {
+                    hold.setEnabled(true);
+                    reset.setEnabled(true);
+                    computercurrent = 0;
+                }
+                else{
+                    computercurrent += number;
+                }
+                computeroverall+=computercurrent;
+
+                compscore.setText(String.format("Computer score:%d",computeroverall));
+
+
                 timerHandler.postDelayed(this,500);
+
             }
         };
 
@@ -147,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void computerTurn(){
-        computerTurnsingle();
+        timerHandler.postDelayed(timerRunnable,0);
+
         int rand = rnd.nextInt(2);
         if (rand == 0) {
             computerTurn();
@@ -159,21 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void computerTurnsingle(){
-        computercurrent = 0;
-        int number = getnumber();
-        if(number==1) {
-            hold.setEnabled(true);
-            reset.setEnabled(true);
-            computercurrent = 0;
-        }
-        else{
-            computercurrent += number;
-        }
-        computeroverall+=computercurrent;
 
-        compscore.setText(String.format("Computer score:%d",computeroverall));
-
-        timerHandler.postDelayed(timerRunnable,5000);
 
     }
 
